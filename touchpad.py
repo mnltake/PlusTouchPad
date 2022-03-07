@@ -29,13 +29,13 @@ while ser.readable():
         abs_x = int((recv_data[1]<<5) | (recv_data[0]>>2)) #10bit(X11~X2)
         abs_y = int((recv_data[3]<<5) | (recv_data[2]>>2)) #10bit(Y11~Y2)
         print(f"pen={pen} pencnt={pencnt} x={abs_x} y={abs_y}")
-        abs_x =mapping(abs_x,95,930,0,340) #キャリブレーション　横34mm*10 に変換　
-        abs_y =mapping(abs_y,70,957,0,640) #縦64mm*10　に変換　
-        if pencnt > 50 and 300 < abs_x and 500 < abs_y :
+        abs_x =mapping(abs_x,95,930,0,304) #キャリブレーション　横30.4mm*10 に変換　
+        abs_y =mapping(abs_y,70,957,0,624) #縦62.4mm*10　に変換　
+        if pencnt > 50 and 300 < abs_x and 480 < abs_y :
             mouse.scroll(0,1)
             pencnt = 0
             print("scroll up")
-        if pencnt > 50 and 300 < abs_x and 300 < abs_y < 500:
+        if pencnt > 50 and 300 < abs_x and 280 < abs_y < 480:
             mouse.scroll(0,-1)
             pencnt = 0
             print("scroll down")
@@ -45,13 +45,13 @@ while ser.readable():
                 key.release('+')
             pencnt = 0
             print("ctrl+")
-        if pencnt > 50 and abs_x < 50 and 300 < abs_y < 500:
+        if pencnt > 50 and abs_x < 50 and 280 < abs_y < 480:
             with key.pressed(keyboard.Key.ctrl):
                 key.press('-')
                 key.release('-')
             pencnt = 0
             print("ctrl-")
-        if abs_y > 300:
+        if abs_y > 280:
             move_x = abs_x - pre_x
             move_y = abs_y - pre_y
             print(f"move={move_x}:{move_y}")
